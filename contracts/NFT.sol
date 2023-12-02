@@ -16,7 +16,7 @@ contract NFT is ERC1155("") {
 
     struct Asset {
         uint id;
-        uint _idx;
+        uint idx;
         string name;
         string desc;
         string img;
@@ -155,6 +155,15 @@ contract NFT is ERC1155("") {
             require(auctionArray[i].collectionId != _collectionId, unicode"Аукцион с такой коллекцией уже запущен");
         }
         auctionArray.push(Auction(auctionArray.length, _collectionId, _timeStart, _timeEnd, maxPrice, minPrice, leader, currentBet));
+    }
+
+    function finishAuc(uint _idx) external OnlyOwner {
+        _safeBatchTransferFrom(owner, auctionArray[_idx].leader, collectionArray[auctionArray[_idx].collectionId].ids, collectionArray[auctionArray[_idx].collectionId].amounts, "");
+        for(uint i = 0; i < collectionArray[auctionArray[_idx].collectionId].ids.length; i++) {
+            userAssets[auctionArray[_idx].leader].push(Asset(collectionArray[auctionArray[_idx].collectionId].ids[i], userAssets[auctionArray[_idx].leader].length, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].name, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].desc, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].img, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].releasedAmount, 1 * dec, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].dateCreate));
+            delete userAssets[owner][assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].idx];
+        }
+        auctionArray[_idx].leader = address(0);
     }
 
     function changeSellPrice(uint _idx, uint _price) public {

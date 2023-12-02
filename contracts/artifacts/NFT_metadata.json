@@ -421,6 +421,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_idx",
+						"type": "uint256"
+					}
+				],
+				"name": "finishAuc",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getReferrals",
 				"outputs": [
@@ -832,7 +845,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -927,11 +940,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0xf5aa545d2d6d50eaf5dc245c097432b59c3033f8f0231939dbb9fd062e3448ae",
+			"keccak256": "0x045267bf3f7ef17bed843c845a22b87a6f29b47bbbcc7c3331fa2febf1f2da08",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://09e3d585c50afb18a380d3d48266770bf43b07a95e9fb5aec3818e97944da539",
-				"dweb:/ipfs/Qmd2j28Z2ziVaC3MNHJjUwFSF4dmenRKYmMBFZpZFurFY6"
+				"bzz-raw://6c212797220fd8f87684ee1fb2447be71eabd523f8b90282f0fc9709420db895",
+				"dweb:/ipfs/QmXVBjBUeQafn5rtawqExXRjSVD7Wzs14LF1bWPSaLZiqk"
 			]
 		}
 	},
