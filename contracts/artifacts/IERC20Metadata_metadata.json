@@ -277,7 +277,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/ERC20 (3).sol": "IERC20Metadata"
+			"contracts/ERC20.sol": "IERC20Metadata"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -291,7 +291,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/ERC20 (3).sol": {
+		"contracts/ERC20.sol": {
 			"keccak256": "0xba71dc3094972d4cfaa4419d2a1d0e89e809ed53cf0d93bc625841dcbe9f49cf",
 			"license": "MIT",
 			"urls": [
