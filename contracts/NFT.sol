@@ -59,6 +59,11 @@ contract NFT is ERC1155("") {
         uint currentBet;
     }
 
+    struct Bet {
+        uint amount;
+        address owner;
+    }
+
     constructor(address _contractAddress) {
         token = IMint(_contractAddress);
         dec = 10 ** token.decimals();
@@ -74,6 +79,7 @@ contract NFT is ERC1155("") {
     mapping (uint => Asset) assets;
     mapping (address => Asset[]) userAssets;
     mapping (uint => CollectionAsset) collectionAssets;
+    mapping (uint => Bet[]) betMap;
 
 
     AssetSell[] sells;
@@ -85,6 +91,11 @@ contract NFT is ERC1155("") {
 
     modifier OnlyOwner() {
         require(msg.sender == owner, unicode"Только владелец может это использовать");
+        _;
+    }
+
+    modifier CheckAuc(uint maxPrice){
+        require(maxPrice != 0, unicode"Аукцион завершён");
         _;
     }
 
@@ -164,6 +175,50 @@ contract NFT is ERC1155("") {
             delete userAssets[owner][assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].idx];
         }
         auctionArray[_idx].leader = address(0);
+    }
+
+    function takeNFT(uint _idx) public OnlyOwner CheckAuc(auctionArray[_idx].maxPrice){
+        require(auctionArray[_idx].maxPrice == 0 || auctionArray[_idx].leader == address(0), unicode"Аукцион ещё не завершен");
+        require(auctionArray[_idx].leader == msg.sender, unicode"Вы не победитель аукциона ");
+        _safeBatchTransferFrom(owner, msg.sender, collectionArray[auctionArray[_idx].collectionId].ids, collectionArray[auctionArray[_idx].collectionId].amounts, "");
+        for(uint i = 0; i < collectionArray[auctionArray[_idx].collectionId].ids.length; i++) {
+            userAssets[msg.sender].push(Asset(collectionArray[auctionArray[_idx].collectionId].ids[i], userAssets[auctionArray[_idx].leader].length, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].name, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].desc, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].img, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].releasedAmount, 1 * dec, assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].dateCreate));
+            delete userAssets[owner][assets[collectionAssets[auctionArray[_idx].collectionId].ids[i]].idx];
+        }
+        auctionArray[_idx].leader = address(0);
+    }
+
+    function bid(uint _idx, uint _bet) public CheckAuc(auctionArray[_idx].maxPrice) {
+        require(auctionArray[_idx].currentBet < _bet, unicode"Текущая ставка выше вашей");
+        token.transferToken(msg.sender, owner, _bet);
+        auctionArray[_idx].currentBet = _bet;
+        auctionArray[_idx].leader = msg.sender;
+        betMap[_idx].push(Bet(_bet, msg.sender));
+        if(_bet * dec >= auctionArray[_idx].maxPrice){
+            auctionArray[_idx].maxPrice = 0;
+            takeNFT(_idx);
+        }
+    }
+
+    function upBid(uint _idx, uint _amount) public CheckAuc(auctionArray[_idx].maxPrice) {
+        require(_amount >= 10, unicode"Минимальная ставка - 10 PROFI");
+        require(auctionArray[_idx].leader != msg.sender, unicode"Вы уже лидер");
+        for(uint i = 0; i < betMap[_idx].length; i++) {
+            if(betMap[_idx][i].owner == msg.sender) {
+                betMap[_idx][i].amount += _amount * dec;
+                token.transferToken(msg.sender, owner, _amount);
+
+                if(betMap[_idx][i].amount > auctionArray[_idx].currentBet){
+                    auctionArray[_idx].currentBet = betMap[_idx][i].amount;
+                    auctionArray[_idx].leader = msg.sender;
+                }
+
+                if(betMap[_idx][i].amount >= auctionArray[_idx].maxPrice) {
+                    auctionArray[_idx].maxPrice = 0;
+                    takeNFT(_idx);
+                }
+            }
+        }
     }
 
     function changeSellPrice(uint _idx, uint _price) public {

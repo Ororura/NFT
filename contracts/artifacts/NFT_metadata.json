@@ -288,6 +288,24 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "_idx",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_bet",
+						"type": "uint256"
+					}
+				],
+				"name": "bid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
 					},
@@ -665,6 +683,19 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "_idx",
+						"type": "uint256"
+					}
+				],
+				"name": "takeNFT",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
 					},
@@ -685,6 +716,24 @@
 					}
 				],
 				"name": "transferAsset",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_idx",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "upBid",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -940,11 +989,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x045267bf3f7ef17bed843c845a22b87a6f29b47bbbcc7c3331fa2febf1f2da08",
+			"keccak256": "0x8080ecdb7d95d8b13fbc52eb3bd110ba41b0e0ee182356546582f6932ca67715",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6c212797220fd8f87684ee1fb2447be71eabd523f8b90282f0fc9709420db895",
-				"dweb:/ipfs/QmXVBjBUeQafn5rtawqExXRjSVD7Wzs14LF1bWPSaLZiqk"
+				"bzz-raw://f0ecccc8f4b3943b4acf33a33020ed840c0697346caefa34cef7ac0bb9f59d8d",
+				"dweb:/ipfs/QmPvwhawLr2BoyGVeSTSg6kyzj765UgQGBSTXzRgzMdKCR"
 			]
 		}
 	},
