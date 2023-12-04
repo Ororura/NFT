@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.22+commit.4fc1097e"
+		"version": "0.8.23+commit.f704f362"
 	},
 	"language": "Solidity",
 	"output": {
@@ -453,6 +453,156 @@
 			},
 			{
 				"inputs": [],
+				"name": "getAsset",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "idx",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "desc",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "img",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "releasedAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "dateCreate",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct NFT.Asset[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAuction",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "collectionId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeStart",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeEnd",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "maxPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "minPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "leader",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "currentBet",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct NFT.Auction[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCollectionAsset",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "desc",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "ids",
+								"type": "uint256[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "amounts",
+								"type": "uint256[]"
+							}
+						],
+						"internalType": "struct NFT.CollectionAsset[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getReferrals",
 				"outputs": [
 					{
@@ -474,6 +624,51 @@
 							}
 						],
 						"internalType": "struct NFT.ReferralCode[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSells",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "assetId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "assetIdx",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct NFT.AssetSell[]",
 						"name": "",
 						"type": "tuple[]"
 					}
@@ -989,11 +1184,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0xda8e84bf451e00633c5760e18f17607b36fa0eb62abf9ffdb29b259054806fa9",
+			"keccak256": "0x88204db3e88b2bfa7d03cd24a8c19ead6dbb601ed7bb584b572a574ae4571555",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://55f341df0f3764dd8d84300031757390a864ae6416f449c4bd46b0102c1e4417",
-				"dweb:/ipfs/QmWe8PAePaLKBGcPqwqwG5Cu3YJuPudy7aSyYCa8ZQys9G"
+				"bzz-raw://776af8e5b59b502d84a469290333e7cf9d332ef3949f1faccb17fda4fc9ac1b2",
+				"dweb:/ipfs/QmSMiRE9ZhE3TTVdiv7NKiEcCUbEWHhr6dTBvob5sVe6G9"
 			]
 		}
 	},

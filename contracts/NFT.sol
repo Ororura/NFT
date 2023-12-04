@@ -230,4 +230,21 @@ contract NFT is ERC1155("") {
         return referralArray;
     }
 
+    function getSells() public view returns(AssetSell[] memory) {
+        return sells;
+    }
+
+    function getAsset() public view returns(Asset[] memory) {
+        return assetArray;
+    }
+
+    function getCollectionAsset() public view returns(CollectionAsset[] memory) {
+        return collectionArray;
+    }
+
+    function getAuction() public view returns(Auction[] memory) {
+        return auctionArray;
+    }
+
+
 }
