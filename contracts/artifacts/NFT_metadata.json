@@ -297,7 +297,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "bid",
+				"name": "bet",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -452,7 +452,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_idx",
+						"type": "uint256"
+					}
+				],
 				"name": "getAsset",
 				"outputs": [
 					{
@@ -498,9 +504,9 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct NFT.Asset[]",
+						"internalType": "struct NFT.Asset",
 						"name": "",
-						"type": "tuple[]"
+						"type": "tuple"
 					}
 				],
 				"stateMutability": "view",
@@ -928,7 +934,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "upBid",
+				"name": "upBet",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -1184,11 +1190,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x88204db3e88b2bfa7d03cd24a8c19ead6dbb601ed7bb584b572a574ae4571555",
+			"keccak256": "0xcecfa36bc6e84fe2a420d847833c9d3d38cb024fae7469dedc7a93b3c3fe036a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://776af8e5b59b502d84a469290333e7cf9d332ef3949f1faccb17fda4fc9ac1b2",
-				"dweb:/ipfs/QmSMiRE9ZhE3TTVdiv7NKiEcCUbEWHhr6dTBvob5sVe6G9"
+				"bzz-raw://2784cc7625105b61bb229220008bce18cab6d58428e3011184a3e6fd3b7317aa",
+				"dweb:/ipfs/QmSuByANyBXDzZkKViL9wTmZPrpMqAwe3rmKxP9Fb7ot1m"
 			]
 		}
 	},

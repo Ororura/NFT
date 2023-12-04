@@ -69,9 +69,11 @@ contract NFT is ERC1155("") {
         dec = 10 ** token.decimals();
         owner = msg.sender;
 
-        createAsset(0, unicode"Комочек", unicode"Комочек слился с космосом", unicode"cat_nft1.png", 0, 1, block.timestamp);
-        createAsset(0, unicode"Вкусняшка", unicode"Вкусняшка впервые пробует японскую кухню", unicode"cat_nft2.png", 0, 1, block.timestamp);
-        createAsset(0, unicode"Пузырик", unicode"Пузырик похитил котика с Земли", unicode"cat_nft3.png", 0, 1, block.timestamp);
+        createAsset(1, unicode"Комочек", unicode"Комочек слился с космосом", unicode"cat_nft1.png", 0, 1, block.timestamp);
+        createAsset(2, unicode"Вкусняшка", unicode"Вкусняшка впервые пробует японскую кухню", unicode"cat_nft2.png", 0, 1, block.timestamp);
+        createAsset(3, unicode"Пузырик", unicode"Пузырик похитил котика с Земли", unicode"cat_nft3.png", 0, 1, block.timestamp);
+        createAsset(4, unicode"Баскетболист", unicode"Он идет играть в баскетбол", unicode"walker_nft1.png", 0, 1, block.timestamp);
+        createAsset(5, unicode"Волшебник", unicode"Он идет колдовать", unicode"walker_nft2.png", 0, 1, block.timestamp);
     }
 
     mapping (string => ReferralCode) referrals;
@@ -188,7 +190,7 @@ contract NFT is ERC1155("") {
         auctionArray[_idx].leader = address(0);
     }
 
-    function bid(uint _idx, uint _bet) public CheckAuc(auctionArray[_idx].maxPrice) {
+    function bet(uint _idx, uint _bet) public CheckAuc(auctionArray[_idx].maxPrice) {
         require(auctionArray[_idx].currentBet < _bet, unicode"Текущая ставка выше вашей");
         token.transferToken(msg.sender, owner, _bet);
         auctionArray[_idx].currentBet = _bet;
@@ -200,7 +202,7 @@ contract NFT is ERC1155("") {
         }
     }
 
-    function upBid(uint _idx, uint _amount) public CheckAuc(auctionArray[_idx].maxPrice) {
+    function upBet(uint _idx, uint _amount) public CheckAuc(auctionArray[_idx].maxPrice) {
         require(_amount >= 10, unicode"Минимальная ставка - 10 PROFI");
         require(auctionArray[_idx].leader != msg.sender, unicode"Вы уже лидер");
         for(uint i = 0; i < betMap[_idx].length; i++) {
@@ -234,16 +236,16 @@ contract NFT is ERC1155("") {
         return sells;
     }
 
-    function getAsset() public view returns(Asset[] memory) {
-        return assetArray;
-    }
-
     function getCollectionAsset() public view returns(CollectionAsset[] memory) {
         return collectionArray;
     }
 
     function getAuction() public view returns(Auction[] memory) {
         return auctionArray;
+    }
+
+    function getAsset(uint _idx) public view returns(Asset memory) {
+        return assets[_idx];
     }
 
 
