@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "./ERC20.sol";
 
-interface IMint {
+interface IMint is IERC20 {
     function getRewrdCode() external;
     function transferToken(address _from, address _to, uint _amount) external ;
     function decimals() external pure returns(uint8);
