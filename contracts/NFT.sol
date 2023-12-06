@@ -14,6 +14,7 @@ contract NFT is ERC1155("") {
     uint dec;
     address owner;
     IMint private token;
+    // Добавить id коллекции в структуру нфт
 
     struct AssetNFT {
         uint id;
@@ -47,6 +48,7 @@ contract NFT is ERC1155("") {
         string name;
         address owner;
         uint discount;
+        address[] users;
     }
 
     struct Auction {
@@ -69,11 +71,11 @@ contract NFT is ERC1155("") {
         dec = 10 ** token.decimals();
         owner = msg.sender;
 
-        createNFT(1, unicode"Комочек", unicode"Комочек слился с космосом", unicode"cat_nft1.png", 0, 1, block.timestamp);
-        createNFT(2, unicode"Вкусняшка", unicode"Вкусняшка впервые пробует японскую кухню", unicode"cat_nft2.png", 0, 1, block.timestamp);
-        createNFT(3, unicode"Пузырик", unicode"Пузырик похитил котика с Земли", unicode"cat_nft3.png", 0, 1, block.timestamp);
-        createNFT(4, unicode"Баскетболист", unicode"Он идет играть в баскетбол", unicode"walker_nft1.png", 0, 1, block.timestamp);
-        createNFT(5, unicode"Волшебник", unicode"Он идет колдовать", unicode"walker_nft2.png", 0, 1, block.timestamp);
+        createNFT(1, unicode"Комочек", unicode"Комочек слился с космосом", unicode"cat_nft1.png", 0, 1);
+        createNFT(2, unicode"Вкусняшка", unicode"Вкусняшка впервые пробует японскую кухню", unicode"cat_nft2.png", 0, 1);
+        createNFT(3, unicode"Пузырик", unicode"Пузырик похитил котика с Земли", unicode"cat_nft3.png", 0, 1);
+        createNFT(4, unicode"Баскетболист", unicode"Он идет играть в баскетбол", unicode"walker_nft1.png", 0, 1);
+        createNFT(5, unicode"Волшебник", unicode"Он идет колдовать", unicode"walker_nft2.png", 0, 1);
     }
 
     mapping (string => ReferralCode) referralsMap;
@@ -82,6 +84,7 @@ contract NFT is ERC1155("") {
     mapping (address => AssetNFT[]) userAssetsMap;
     mapping (uint => CollectionAsset) collectionAssetsMap;
     mapping (uint => Bet[]) betMap;
+    mapping (address => string) usersReferralMap;
 
 
     AssetSell[] sellsArray;
@@ -107,38 +110,50 @@ contract NFT is ERC1155("") {
         }
     }
 
-    function createNFT(uint _id, string memory _name, string memory _desc, string memory _img, uint _price, uint _releasedAmount, uint _dateCreate) public OnlyOwner {
+    function createNFT(uint _id, string memory _name, string memory _desc, string memory _img, uint _price, uint _releasedAmount) public OnlyOwner {
         require(assetsNFTMap[_id].price == 0, unicode"NFT с таким id уже есть в системе");
         _mint(msg.sender, _id, _releasedAmount, "");
-        assetsNFTMap[_id] = AssetNFT(_id, userAssetsMap[msg.sender].length, _name, _desc, _img, _price, _releasedAmount, _dateCreate);
-        userAssetsMap[msg.sender].push(AssetNFT(_id, userAssetsMap[msg.sender].length, _name, _desc, _img, _price, _releasedAmount, _dateCreate));
+        assetsNFTMap[_id] = AssetNFT(_id, userAssetsMap[msg.sender].length, _name, _desc, _img, _price, _releasedAmount, block.timestamp);
+        userAssetsMap[msg.sender].push(AssetNFT(_id, userAssetsMap[msg.sender].length, _name, _desc, _img, _price, _releasedAmount, block.timestamp));
     }
 
     function createCollection(uint _id, string memory _name, string memory _desc, uint[] memory _ids, uint[] memory _amounts) public OnlyOwner {
         require(collectionAssetsMap[_id].id != _id, unicode"Коллекция с таким id уже существует");
-        _mintBatch(msg.sender, _ids, _amounts, "");
         collectionAssetsMap[_id] = CollectionAsset(_id, _name, _desc, _ids, _amounts);
         collectionArray.push(CollectionAsset(_id, _name, _desc, _ids, _amounts));
     }
 
-    function createRef(string calldata _wallet) public returns(string memory) {
+    function createRef(string calldata _wallet) public {
         require(referralsMap[string.concat("PROFI-", _wallet[2:6],"2024")].owner != msg.sender, unicode"Вы уже создали реферал");
+        address[] memory mas;
         string memory name = string.concat("PROFI-", _wallet[2:6],"2024");
-        referralsMap[name] = ReferralCode(name, msg.sender, 0);
-        referralArray.push(ReferralCode(name,msg.sender, 0));
-        return name;
+        referralsMap[name] = ReferralCode(name, msg.sender, 0, mas);
+        referralArray.push(ReferralCode(name,msg.sender, 0, mas));
+        usersReferralMap[msg.sender] = name;
+    }
+
+    function addUsersRef(address _users) public {
+        referralsMap[usersReferralMap[msg.sender]].users.push(_users);
     }
 
     function useReferral(string memory _referral) public {
+        for(uint i; i < referralsMap[_referral].users.length; i++) {
+            require(msg.sender == referralsMap[_referral].users[i], unicode"Вы не можете использовать этот код");
+        }
+        require(referralsMap[_referral].owner != msg.sender, unicode"Вы не можете использовать свой же код");
         require(keccak256(abi.encodePacked(referralsMap[_referral].name)) == keccak256(abi.encodePacked(_referral)), unicode"Такого реферального кода нет в системе");
         require(usedRefMap[msg.sender] != true, unicode"Вы уже использовали код");
         token.getRewrdCode();
         usedRefMap[msg.sender] = true;
-        referralsMap[_referral].discount = referralsMap[_referral].discount + 1; 
+        if(referralsMap[_referral].discount < 3) {
+            referralsMap[_referral].discount = referralsMap[_referral].discount + 1; 
+        }
     }
 
     function sellNFT(uint _id, uint _AssetIdx, uint _amount, uint _price) external {
         require(userAssetsMap[msg.sender][_AssetIdx].releasedAmount >= _amount, unicode"У вас недостаточно NFT");
+        // Ограничение на продажу коллекций
+        // require(condition); 
         sellsArray.push(AssetSell(sellsArray.length, _id, _AssetIdx, msg.sender, _amount, _price));
     }
 
@@ -169,11 +184,11 @@ contract NFT is ERC1155("") {
         }
     }
 
-    function startAuc(uint _collectionId, uint _timeStart, uint _timeEnd, uint maxPrice, uint minPrice) public OnlyOwner{
+    function startAuc(uint _collectionId, uint _timeStart, uint _timeEnd, uint _maxPrice, uint _minPrice) public OnlyOwner{
         for(uint i; i < auctionArray.length; i++) {
             require(auctionArray[i].collectionId != _collectionId, unicode"Аукцион с такой коллекцией уже запущен");
         }
-        auctionArray.push(Auction(auctionArray.length, _collectionId, _timeStart, _timeEnd, maxPrice, owner, minPrice));
+        auctionArray.push(Auction(auctionArray.length, _collectionId, _timeStart, _timeEnd, _maxPrice, owner, _minPrice));
     }
 
     function finishAuc(uint _idx) external OnlyOwner {
@@ -252,6 +267,10 @@ contract NFT is ERC1155("") {
 
     function getAsset(uint _idx) public view returns(AssetNFT memory) {
         return assetsNFTMap[_idx];
+    }
+
+    function getUserReferral() public view returns(string memory) {
+        return usersReferralMap[msg.sender];
     }
 
 

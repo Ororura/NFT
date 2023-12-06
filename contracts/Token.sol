@@ -2,7 +2,7 @@
 pragma solidity ^0.8.22;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract Token is ERC20("PROFI", "Proffesional") {
+contract Token is ERC20("Proffesional", "PROFI") {
 
     address public owner;
     address public tom;
@@ -11,9 +11,9 @@ contract Token is ERC20("PROFI", "Proffesional") {
 
     constructor() {
         owner = msg.sender;
-        tom = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
-        max = 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db;
-        jack = 0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB;
+        tom = 0xcB3a5467756F86692FB3336c58EC41c16B9BEBdF;
+        max = 0xbD0233D4cb7abE917F79f0E80DC7676F4cb818e1;
+        jack = 0x7CE4B5D0504EdF27ec43610F8679E84BDF81a0b8;
 
         _mint(owner, 100_000 * 10 ** decimals());
         _mint(tom, 200_000 * 10 ** decimals());

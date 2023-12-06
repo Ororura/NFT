@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.23+commit.f704f362"
+		"version": "0.8.22+commit.4fc1097e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -240,6 +240,19 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_users",
+						"type": "address"
+					}
+				],
+				"name": "addUsersRef",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "account",
 						"type": "address"
 					},
@@ -420,11 +433,6 @@
 						"internalType": "uint256",
 						"name": "_releasedAmount",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_dateCreate",
-						"type": "uint256"
 					}
 				],
 				"name": "createNFT",
@@ -441,13 +449,7 @@
 					}
 				],
 				"name": "createRef",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
+				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -635,11 +637,29 @@
 								"internalType": "uint256",
 								"name": "discount",
 								"type": "uint256"
+							},
+							{
+								"internalType": "address[]",
+								"name": "users",
+								"type": "address[]"
 							}
 						],
 						"internalType": "struct NFT.ReferralCode[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getUserReferral",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -845,12 +865,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "maxPrice",
+						"name": "_maxPrice",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "minPrice",
+						"name": "_minPrice",
 						"type": "uint256"
 					}
 				],
@@ -1087,7 +1107,7 @@
 		"compilationTarget": {
 			"contracts/NFT.sol": "NFT"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1196,11 +1216,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x933223a5a2e089451cd78f93c947a142d37a40ba3b0c225b2b4e9dce7d2d98dd",
+			"keccak256": "0x4ab1ffc787d56b9e097063db79765ef4f8530d9a6491f8d9150f3017cf2a67c3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f1adbadf97aea05b06ace095a6d64f44d46450f19390f33d4d30a8f0f210f3dc",
-				"dweb:/ipfs/QmZovQWTVC6c2aEqbbJNdn3qgwvqhLYSbpGqMXdSggv1yo"
+				"bzz-raw://f27979ae2e09c9219fb90f3e1a9fa785feae94c25c11bf80313fae3a36ad6a5b",
+				"dweb:/ipfs/QmSFE5SUuq5EdDBa2X6WsEavKmT4JjbU4UXpqKzfuKvnmR"
 			]
 		}
 	},
