@@ -576,4 +576,8 @@ contract NFT is ERC1155("") {
     function getArrayAsset() public view returns (AssetNFT[] memory) {
         return assetArray;
     }
+
+    function getTime() public view returns(uint) {
+        return block.timestamp;
+    }
 }

@@ -644,6 +644,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "getTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getUserReferral",
 				"outputs": [
 					{
@@ -1206,11 +1219,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x323b0a92b8fa22d0c8ca06dbe55f369aae0a447d9bc7c466c6e8f4756dfd8f09",
+			"keccak256": "0x9f2fa60453da9943807c53d9b10ee05f3ac8f55af8f41e3dbbf8ee048001d1aa",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3612c77be083ad73414ed277b0e6db5ed60606ce95f7f4d4d0c1d9c7064820c9",
-				"dweb:/ipfs/QmZvL3RZXae1aUFjsrRTrd7kSRrKtNrsTrYbkqihN4v6Uy"
+				"bzz-raw://76724f93ab4b5366209977fcd39be68056bb0614fc15ae40d9a1ef0cd2dc3f6c",
+				"dweb:/ipfs/QmPC8mhdexETWgm9fwguhNqpBsW3EydhQBzH6nBj1DMwBK"
 			]
 		}
 	},
