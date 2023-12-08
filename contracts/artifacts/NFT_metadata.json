@@ -237,19 +237,6 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "_balanceOf",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -385,11 +372,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					},
-					{
 						"internalType": "string",
 						"name": "_name",
 						"type": "string"
@@ -475,22 +457,11 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_idx",
-						"type": "uint256"
-					}
-				],
-				"name": "getAsset",
+				"inputs": [],
+				"name": "getArrayAsset",
 				"outputs": [
 					{
 						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
 							{
 								"internalType": "uint256",
 								"name": "idx",
@@ -525,6 +496,72 @@
 								"internalType": "uint256",
 								"name": "dateCreate",
 								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "collectionId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct NFT.AssetNFT[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_idx",
+						"type": "uint256"
+					}
+				],
+				"name": "getAsset",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "idx",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "desc",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "img",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "releasedAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "dateCreate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "collectionId",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct NFT.AssetNFT",
@@ -537,65 +574,10 @@
 			},
 			{
 				"inputs": [],
-				"name": "getAuction",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "collectionId",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "timeStart",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "timeEnd",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "maxPrice",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "leader",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "currentBet",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct NFT.Auction[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "getCollectionAsset",
 				"outputs": [
 					{
 						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
 							{
 								"internalType": "string",
 								"name": "name",
@@ -1224,11 +1206,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x00e20ccdb1d27e2d4fcdddf18bbad804fa325c9910ec4c442b1beaec625897cb",
+			"keccak256": "0x323b0a92b8fa22d0c8ca06dbe55f369aae0a447d9bc7c466c6e8f4756dfd8f09",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://32843546fe4aebcf4895f02d4e25e9283dbdaccb8ccf66fd500fb3299b9a71bc",
-				"dweb:/ipfs/QmPMKKgt64d7zg3qxJUghySMZUR3arAUDGoW3HU4NWUGxb"
+				"bzz-raw://3612c77be083ad73414ed277b0e6db5ed60606ce95f7f4d4d0c1d9c7064820c9",
+				"dweb:/ipfs/QmZvL3RZXae1aUFjsrRTrd7kSRrKtNrsTrYbkqihN4v6Uy"
 			]
 		}
 	},

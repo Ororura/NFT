@@ -137,7 +137,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getRewrdCode",
+				"name": "getRewardCode",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -383,11 +383,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x00e20ccdb1d27e2d4fcdddf18bbad804fa325c9910ec4c442b1beaec625897cb",
+			"keccak256": "0x323b0a92b8fa22d0c8ca06dbe55f369aae0a447d9bc7c466c6e8f4756dfd8f09",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://32843546fe4aebcf4895f02d4e25e9283dbdaccb8ccf66fd500fb3299b9a71bc",
-				"dweb:/ipfs/QmPMKKgt64d7zg3qxJUghySMZUR3arAUDGoW3HU4NWUGxb"
+				"bzz-raw://3612c77be083ad73414ed277b0e6db5ed60606ce95f7f4d4d0c1d9c7064820c9",
+				"dweb:/ipfs/QmZvL3RZXae1aUFjsrRTrd7kSRrKtNrsTrYbkqihN4v6Uy"
 			]
 		}
 	},

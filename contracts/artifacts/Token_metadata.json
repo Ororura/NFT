@@ -228,7 +228,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getRewrdCode",
+				"name": "getRewardCode",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -559,11 +559,11 @@
 			]
 		},
 		"contracts/Token.sol": {
-			"keccak256": "0x79e2edc56eb92cfc4ed3e803c942ab50d7115033df34f916939536f3a5ef7c45",
+			"keccak256": "0xddf6237eae0131cd6041151b9626d1c94f08a761ef5178e759e4f3ff0fcc21fc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1a2e2ecdeec4db63dfc0a0a5a6f302c19437cbbc6888f4e8fbea1370a33f58b2",
-				"dweb:/ipfs/QmURaP7cQre31AnqJnBMzm1U8Hvs62rG47jAzYRvEKA5qR"
+				"bzz-raw://b5fcb674751b33cdd6e9187ae27c92cb2004f6bd57fab80ee27585cbb902d7b2",
+				"dweb:/ipfs/QmcnnXkFp6my1BYtreZZK3CHLbaeTiE4WQn42cLMJahvBQ"
 			]
 		}
 	},

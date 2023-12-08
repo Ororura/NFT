@@ -53,7 +53,7 @@
 			"approve(address,uint256)": "095ea7b3",
 			"balanceOf(address)": "70a08231",
 			"decimals()": "313ce567",
-			"getRewrdCode()": "5cd07ee6",
+			"getRewardCode()": "3424e5ad",
 			"totalSupply()": "18160ddd",
 			"transfer(address,uint256)": "a9059cbb",
 			"transferFrom(address,address,uint256)": "23b872dd",
@@ -193,7 +193,7 @@
 		},
 		{
 			"inputs": [],
-			"name": "getRewrdCode",
+			"name": "getRewardCode",
 			"outputs": [],
 			"stateMutability": "nonpayable",
 			"type": "function"

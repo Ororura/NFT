@@ -20,7 +20,7 @@ contract Token is ERC20("Proffesional", "PROFI") {
         _mint(jack, 400_000 * 10**decimals());
     }
 
-    function getRewrdCode() public {
+    function getRewardCode() public {
         _mint(msg.sender, 100 * 10 * decimals());
     }
 
