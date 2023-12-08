@@ -10,9 +10,9 @@ contract Token is ERC20("Proffesional", "PROFI") {
 
     constructor() {
         owner = msg.sender;
-        tom = 0xB08DB82e25Eb6e50d2beEBA70626EfCeb0A5EeE9;
-        max = 0x110CE84e8654D4970912246c754d633F8851A05D;
-        jack = 0x7d0eADdF71C8264917f27B596cf6426f4360E3eb;
+        tom = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
+        max = 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db;
+        jack = 0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB;
 
         _mint(owner, 100_000 * 10**decimals());
         _mint(tom, 200_000 * 10**decimals());

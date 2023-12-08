@@ -330,7 +330,9 @@ contract NFT is ERC1155("") {
         uint256 _amount
     ) external {
         safeTransferFrom(msg.sender, _receiver, _id, _amount, "");
-        userAssetsMap[msg.sender][_id].amount = userAssetsMap[msg.sender][_id].amount - _amount;
+        userAssetsMap[msg.sender][_id].amount =
+            userAssetsMap[msg.sender][_id].amount -
+            _amount;
         userAssetsMap[_receiver].push(
             AssetNFT(
                 _id,
@@ -353,8 +355,7 @@ contract NFT is ERC1155("") {
         uint256 _collectionId,
         uint256 _timeStart,
         uint256 _timeEnd,
-        uint256 _maxPrice,
-        uint256 _minPrice
+        uint256 _maxPrice
     ) external OnlyOwner {
         for (uint256 i; i < auctionArray.length; i++) {
             require(
@@ -370,7 +371,7 @@ contract NFT is ERC1155("") {
                 _timeEnd,
                 _maxPrice,
                 owner,
-                _minPrice
+                10
             )
         );
     }
@@ -434,7 +435,6 @@ contract NFT is ERC1155("") {
 
     function takeNFT(uint256 _idx)
         public
-        OnlyOwner
         CheckAuc(auctionArray[_idx].maxPrice)
     {
         require(
@@ -505,15 +505,23 @@ contract NFT is ERC1155("") {
         external
         CheckAuc(auctionArray[_idx].maxPrice)
     {
+        for (uint256 i = 0; i < betMap[_idx].length; i++) {
+            require(
+                betMap[_idx][i].owner != msg.sender,
+                unicode"Вы уже сделали ставку, вы можете её повысить"
+            );
+        }
         require(
             auctionArray[_idx].currentBet < _bet,
             unicode"Текущая ставка выше вашей"
         );
+        require(_bet >= 10, unicode"Минимальная ставка - 10 PROFI");
+
         token.transferToken(msg.sender, owner, _bet);
         auctionArray[_idx].currentBet = _bet;
         auctionArray[_idx].leader = msg.sender;
         betMap[_idx].push(Bet(_bet, msg.sender));
-        if (_bet * dec >= auctionArray[_idx].maxPrice) {
+        if (_bet >= auctionArray[_idx].maxPrice) {
             auctionArray[_idx].maxPrice = 0;
             takeNFT(_idx);
         }
@@ -527,7 +535,7 @@ contract NFT is ERC1155("") {
         require(auctionArray[_idx].leader != msg.sender, unicode"Вы уже лидер");
         for (uint256 i = 0; i < betMap[_idx].length; i++) {
             if (betMap[_idx][i].owner == msg.sender) {
-                betMap[_idx][i].amount += _amount * dec;
+                betMap[_idx][i].amount += _amount;
                 token.transferToken(msg.sender, owner, _amount);
 
                 if (betMap[_idx][i].amount > auctionArray[_idx].currentBet) {
@@ -560,9 +568,9 @@ contract NFT is ERC1155("") {
         return collectionArray;
     }
 
-    function getUserReferral() external view returns (string memory) {
-        return usersReferralMap[msg.sender];
-    }
+    // function getUserReferral() external view returns (string memory) {
+    //     return usersReferralMap[msg.sender];
+    // }
 
     function getUserAssets() external view returns (AssetNFT[] memory) {
         return userAssetsMap[msg.sender];
@@ -574,5 +582,17 @@ contract NFT is ERC1155("") {
 
     function getTime() public view returns (uint256) {
         return block.timestamp;
+    }
+
+    function getBet(uint256 _id) public view returns (Bet[] memory) {
+        return betMap[_id];
+    }
+
+    function getAuctionArray(uint256 _idx)
+        public
+        view
+        returns (Auction memory)
+    {
+        return auctionArray[_idx];
     }
 }
