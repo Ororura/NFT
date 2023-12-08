@@ -676,16 +676,6 @@
 						"components": [
 							{
 								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "assetId",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
 								"name": "assetIdx",
 								"type": "uint256"
 							},
@@ -805,11 +795,6 @@
 			},
 			{
 				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					},
 					{
 						"internalType": "uint256",
 						"name": "_AssetIdx",
@@ -1219,11 +1204,11 @@
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0x9f2fa60453da9943807c53d9b10ee05f3ac8f55af8f41e3dbbf8ee048001d1aa",
+			"keccak256": "0x96e00ea05931073724f04e0eb161569ffed6dd39e803057401e76293a441ce18",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://76724f93ab4b5366209977fcd39be68056bb0614fc15ae40d9a1ef0cd2dc3f6c",
-				"dweb:/ipfs/QmPC8mhdexETWgm9fwguhNqpBsW3EydhQBzH6nBj1DMwBK"
+				"bzz-raw://021a583667b97962afa0608a3f2f7b27770f6ffb01afcfe4e74b36d23fa82eb2",
+				"dweb:/ipfs/QmQ73Cx7TYzP7rfPofHPmJjpBsyYDrw2C4CqS1yRb3gt8z"
 			]
 		}
 	},

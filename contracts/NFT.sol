@@ -26,14 +26,13 @@ contract NFT is ERC1155("") {
         string desc;
         string img;
         uint256 price;
+        uint256 amount;
         uint256 releasedAmount;
         uint256 dateCreate;
         uint256 collectionId;
     }
 
     struct AssetSell {
-        uint256 id;
-        uint256 assetId;
         uint256 assetIdx;
         address seller;
         uint256 amount;
@@ -163,6 +162,7 @@ contract NFT is ERC1155("") {
             _img,
             _price,
             _releasedAmount,
+            _releasedAmount,
             block.timestamp,
             0
         );
@@ -173,6 +173,7 @@ contract NFT is ERC1155("") {
                 _desc,
                 _img,
                 _price,
+                _releasedAmount,
                 _releasedAmount,
                 block.timestamp,
                 0
@@ -185,6 +186,7 @@ contract NFT is ERC1155("") {
                 _desc,
                 _img,
                 _price,
+                _releasedAmount,
                 _releasedAmount,
                 block.timestamp,
                 0
@@ -204,9 +206,7 @@ contract NFT is ERC1155("") {
             _ids,
             _amounts
         );
-        collectionArray.push(
-            CollectionAsset( _name, _desc, _ids, _amounts)
-        );
+        collectionArray.push(CollectionAsset(_name, _desc, _ids, _amounts));
 
         for (uint256 i; i < _ids.length; i++) {
             assetsInCollectionMap[_ids[i]] = true;
@@ -260,7 +260,6 @@ contract NFT is ERC1155("") {
     }
 
     function sellNFT(
-        uint256 _id,
         uint256 _AssetIdx,
         uint256 _amount,
         uint256 _price
@@ -273,16 +272,7 @@ contract NFT is ERC1155("") {
             assetsInCollectionMap[_AssetIdx] == false,
             unicode"Вы не можете продать NFT из коллекции"
         );
-        sellsArray.push(
-            AssetSell(
-                sellsArray.length,
-                _id,
-                _AssetIdx,
-                msg.sender,
-                _amount,
-                _price
-            )
-        );
+        sellsArray.push(AssetSell(_AssetIdx, msg.sender, _amount, _price));
     }
 
     function buyNFT(
@@ -300,29 +290,30 @@ contract NFT is ERC1155("") {
         _safeTransferFrom(
             sellsArray[_id].seller,
             msg.sender,
-            sellsArray[_id].assetId,
+            sellsArray[_id].assetIdx,
             _amount,
             ""
         );
         token.transferToken(msg.sender, sellsArray[_id].seller, totalPrice);
         sellsArray[_id].amount -= _amount;
-        userAssetsMap[sellsArray[_id].seller][sellsArray[_id].assetId]
+        userAssetsMap[sellsArray[_id].seller][sellsArray[_id].assetIdx]
             .releasedAmount -= _amount;
         userAssetsMap[msg.sender].push(
             AssetNFT(
                 userAssetsMap[msg.sender].length,
-                assetsNFTMap[sellsArray[_id].assetId].name,
-                assetsNFTMap[sellsArray[_id].assetId].desc,
-                assetsNFTMap[sellsArray[_id].assetId].img,
+                assetsNFTMap[sellsArray[_id].assetIdx].name,
+                assetsNFTMap[sellsArray[_id].assetIdx].desc,
+                assetsNFTMap[sellsArray[_id].assetIdx].img,
+                _amount,
                 _amount,
                 sellsArray[_id].price,
-                assetsNFTMap[sellsArray[_id].assetId].dateCreate,
-                assetsNFTMap[sellsArray[_id].assetId].collectionId
+                assetsNFTMap[sellsArray[_id].assetIdx].dateCreate,
+                assetsNFTMap[sellsArray[_id].assetIdx].collectionId
             )
         );
 
         if (
-            userAssetsMap[sellsArray[_id].seller][sellsArray[_id].assetId]
+            userAssetsMap[sellsArray[_id].seller][sellsArray[_id].assetIdx]
                 .releasedAmount == 0
         ) {
             delete userAssetsMap[sellsArray[_id].seller];
@@ -335,26 +326,26 @@ contract NFT is ERC1155("") {
 
     function transferNFT(
         uint256 _id,
-        uint256 _idx,
         address _receiver,
         uint256 _amount
     ) external {
-        _safeTransferFrom(msg.sender, _receiver, _id, _amount, "");
-        userAssetsMap[msg.sender][_idx].releasedAmount -= _amount;
+        safeTransferFrom(msg.sender, _receiver, _id, _amount, "");
+        userAssetsMap[msg.sender][_id].amount = userAssetsMap[msg.sender][_id].amount - _amount;
         userAssetsMap[_receiver].push(
             AssetNFT(
-                userAssetsMap[_receiver].length,
+                _id,
                 assetsNFTMap[_id].name,
                 assetsNFTMap[_id].desc,
                 assetsNFTMap[_id].img,
                 _amount,
-                userAssetsMap[msg.sender][_idx].price,
+                assetsNFTMap[_id].releasedAmount,
+                assetsNFTMap[_id].price,
                 assetsNFTMap[_id].dateCreate,
                 assetsNFTMap[_id].collectionId
             )
         );
-        if (userAssetsMap[msg.sender][_idx].releasedAmount == 0) {
-            delete userAssetsMap[msg.sender][_idx];
+        if (userAssetsMap[msg.sender][_id].amount == 0) {
+            delete userAssetsMap[msg.sender][_id];
         }
     }
 
@@ -412,6 +403,10 @@ contract NFT is ERC1155("") {
                         collectionAssetsMap[auctionArray[_idx].collectionId]
                             .ids[i]
                     ].img,
+                    assetsNFTMap[
+                        collectionAssetsMap[auctionArray[_idx].collectionId]
+                            .ids[i]
+                    ].releasedAmount,
                     assetsNFTMap[
                         collectionAssetsMap[auctionArray[_idx].collectionId]
                             .ids[i]
@@ -478,6 +473,10 @@ contract NFT is ERC1155("") {
                         collectionAssetsMap[auctionArray[_idx].collectionId]
                             .ids[i]
                     ].img,
+                    assetsNFTMap[
+                        collectionAssetsMap[auctionArray[_idx].collectionId]
+                            .ids[i]
+                    ].releasedAmount,
                     assetsNFTMap[
                         collectionAssetsMap[auctionArray[_idx].collectionId]
                             .ids[i]
@@ -549,10 +548,6 @@ contract NFT is ERC1155("") {
         sellsArray[_idx].price = _price * dec;
     }
 
-    function getReferrals() public view returns (ReferralCode[] memory) {
-        return referralArray;
-    }
-
     function getsellsArray() public view returns (AssetSell[] memory) {
         return sellsArray;
     }
@@ -565,19 +560,19 @@ contract NFT is ERC1155("") {
         return collectionArray;
     }
 
-    function getAsset(uint256 _idx) external view returns (AssetNFT memory) {
-        return assetsNFTMap[_idx];
-    }
-
     function getUserReferral() external view returns (string memory) {
         return usersReferralMap[msg.sender];
+    }
+
+    function getUserAssets() external view returns (AssetNFT[] memory) {
+        return userAssetsMap[msg.sender];
     }
 
     function getArrayAsset() public view returns (AssetNFT[] memory) {
         return assetArray;
     }
 
-    function getTime() public view returns(uint) {
+    function getTime() public view returns (uint256) {
         return block.timestamp;
     }
 }

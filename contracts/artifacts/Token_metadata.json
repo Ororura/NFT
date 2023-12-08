@@ -506,13 +506,13 @@
 		"compilationTarget": {
 			"contracts/Token.sol": "Token"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -559,11 +559,11 @@
 			]
 		},
 		"contracts/Token.sol": {
-			"keccak256": "0xddf6237eae0131cd6041151b9626d1c94f08a761ef5178e759e4f3ff0fcc21fc",
+			"keccak256": "0x94cc99765b6cecd08254312cd22d88f0b6f7feaf59a1585c4ca7b2cb0f81aa1d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b5fcb674751b33cdd6e9187ae27c92cb2004f6bd57fab80ee27585cbb902d7b2",
-				"dweb:/ipfs/QmcnnXkFp6my1BYtreZZK3CHLbaeTiE4WQn42cLMJahvBQ"
+				"bzz-raw://fb0fc1e8e1096203f434023608ea57d2927ab4f5a6a6694e0d69533eb84c4ee1",
+				"dweb:/ipfs/Qme96SpSQK7kmhbHCka56eVXRAazFu4EXdme6yaRWT3bXD"
 			]
 		}
 	},
