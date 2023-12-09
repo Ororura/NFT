@@ -272,7 +272,9 @@ contract NFT is ERC1155("") {
             assetsInCollectionMap[_AssetIdx] == false,
             unicode"Вы не можете продать NFT из коллекции"
         );
-        sellsArray.push(AssetSell(_AssetIdx, msg.sender, _amount, _price));
+        sellsArray.push(
+            AssetSell(_AssetIdx, msg.sender, _amount, _price * dec)
+        );
     }
 
     function buyNFT(
@@ -369,7 +371,7 @@ contract NFT is ERC1155("") {
                 _collectionId,
                 _timeStart,
                 _timeEnd,
-                _maxPrice,
+                _maxPrice * dec,
                 owner,
                 10
             )
@@ -433,10 +435,7 @@ contract NFT is ERC1155("") {
         auctionArray[_idx].leader = address(0);
     }
 
-    function takeNFT(uint256 _idx)
-        public
-        CheckAuc(auctionArray[_idx].maxPrice)
-    {
+    function takeNFT(uint256 _idx) public {
         require(
             auctionArray[_idx].maxPrice == 0 ||
                 auctionArray[_idx].leader == address(0),
@@ -492,6 +491,11 @@ contract NFT is ERC1155("") {
                     ].collectionId
                 )
             );
+
+            assetsInCollectionMap[
+                collectionAssetsMap[auctionArray[_idx].collectionId].ids[i]
+            ] = false;
+
             delete userAssetsMap[owner][
                 assetsNFTMap[
                     collectionAssetsMap[auctionArray[_idx].collectionId].ids[i]
@@ -505,6 +509,7 @@ contract NFT is ERC1155("") {
         external
         CheckAuc(auctionArray[_idx].maxPrice)
     {
+        _bet = _bet * dec;
         for (uint256 i = 0; i < betMap[_idx].length; i++) {
             require(
                 betMap[_idx][i].owner != msg.sender,
@@ -531,7 +536,8 @@ contract NFT is ERC1155("") {
         external
         CheckAuc(auctionArray[_idx].maxPrice)
     {
-        require(_amount >= 10, unicode"Минимальная ставка - 10 PROFI");
+        _amount = _amount * dec;
+        require(_amount >= 10 * dec, unicode"Минимальная ставка - 10 PROFI");
         require(auctionArray[_idx].leader != msg.sender, unicode"Вы уже лидер");
         for (uint256 i = 0; i < betMap[_idx].length; i++) {
             if (betMap[_idx][i].owner == msg.sender) {
