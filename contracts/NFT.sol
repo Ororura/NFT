@@ -180,7 +180,7 @@ contract NFT is ERC1155("") {
         );
         assetArray.push(
             AssetNFT(
-                userAssetsMap[msg.sender].length,
+                assetsNFTMap[assetArray.length].idx,
                 _name,
                 _desc,
                 _img,
@@ -317,7 +317,7 @@ contract NFT is ERC1155("") {
             userAssetsMap[sellsArray[_id].seller][sellsArray[_id].assetIdx]
                 .releasedAmount == 0
         ) {
-            delete userAssetsMap[sellsArray[_id].seller];
+            delete userAssetsMap[sellsArray[_id].seller][_id];
         }
 
         if (sellsArray[_id].amount == 0) {
