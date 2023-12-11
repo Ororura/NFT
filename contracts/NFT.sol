@@ -372,7 +372,7 @@ contract NFT is ERC1155("") {
                 _timeEnd,
                 _maxPrice * dec,
                 owner,
-                10
+                10 * dec
             )
         );
     }
