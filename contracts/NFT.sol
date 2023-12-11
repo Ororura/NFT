@@ -29,7 +29,7 @@ contract NFT is ERC1155("") {
         uint256 amount;
         uint256 releasedAmount;
         uint256 dateCreate;
-        int collectionId;
+        int256 collectionId;
     }
 
     struct AssetSell {
@@ -226,6 +226,10 @@ contract NFT is ERC1155("") {
     }
 
     function addUsersRef(address _users) external {
+        require(
+            bytes(usersReferralMap[msg.sender]).length != 0,
+            unicode"У вас нет реферала"
+        );
         referralsMap[usersReferralMap[msg.sender]].users.push(_users);
     }
 
