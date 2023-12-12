@@ -372,8 +372,8 @@ contract NFT is ERC1155("") {
             Auction(
                 auctionArray.length,
                 _collectionId,
-                _timeStart,
-                _timeEnd,
+                _timeStart + block.timestamp,
+                _timeEnd + block.timestamp,
                 _maxPrice * dec,
                 owner,
                 10 * dec
